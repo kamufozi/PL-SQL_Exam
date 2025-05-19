@@ -70,20 +70,27 @@ flowchart TD
     style I fill:#FFC107,stroke:#FFA000
 ```
 
-    flowchart LR
-    subgraph Waiter
+```mermaid
+flowchart LR
+    subgraph Waiter["Waiter 🧑🍳"]
         A[Take Order] --> B[Enter in POS]
     end
-    subgraph Chef
+    
+    subgraph Chef["Chef 👨🍳"]
         C[Receive Order] --> D[Prepare Meal]
     end
-    subgraph Manager
+    
+    subgraph Manager["Manager 💼"]
         E[Generate Reports] --> F[Analyze Sales]
     end
+    
     B --> C
     D --> E
     
     style Waiter fill:#E3F2FD,stroke:#2196F3
     style Chef fill:#E8F5E9,stroke:#4CAF50
     style Manager fill:#FFF3E0,stroke:#FF9800
+    ```
+    ```
+
     
