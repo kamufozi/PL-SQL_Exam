@@ -93,4 +93,27 @@ flowchart LR
     ```
     ```
 
+    # Business Process Documentation
+
+## 1. System Flow
+1. Order taken → POS entry → Kitchen display  
+2. Payment processed → Inventory updated  
+3. Report generated → Performance analyzed  
+
+## 2. PL/SQL Integration
+```sql
+-- Sample trigger for Phase VII
+CREATE TRIGGER trg_update_inventory
+AFTER INSERT ON order_items
+FOR EACH ROW
+BEGIN
+    UPDATE inventory 
+    SET stock = stock - :NEW.quantity
+    WHERE item_id = :NEW.item_id;
+END;
+/
+```
+```
+
+
     
