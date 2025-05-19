@@ -69,7 +69,7 @@ flowchart TD
     style J fill:#F44336,stroke:#D32F2F
     style I fill:#FFC107,stroke:#FFA000
 ```
-```
+
     flowchart LR
     subgraph Waiter
         A[Take Order] --> B[Enter in POS]
@@ -86,5 +86,4 @@ flowchart TD
     style Waiter fill:#E3F2FD,stroke:#2196F3
     style Chef fill:#E8F5E9,stroke:#4CAF50
     style Manager fill:#FFF3E0,stroke:#FF9800
-    ```
     
