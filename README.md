@@ -43,11 +43,15 @@ erDiagram
 ```
 ![Phase I](./screenshots/phase%20I.png)
 
-## 📌 Core Deliverables  
+# 🏗️ PL/SQL Capstone - Phase II: Business Process Modeling
+**Adventist University of Central Africa**  
+*Faculty of Information Technology | INSY 8311 - Database Development with PL/SQL*  
+**Student:** Christian (ID: 27491) | **Group:** Wednesday  
+**Deadline:** [Insert Date]  
 
-### 1. BPMN Diagram (Order Fulfillment)  
+---
 
-````markdown
+## 📌 BPMN Diagram (Order Fulfillment Process)
 ```mermaid
 flowchart TD
     A([Start]) --> B[Take Order]
@@ -64,47 +68,4 @@ flowchart TD
     style A fill:#4CAF50,stroke:#388E3C
     style J fill:#F44336,stroke:#D32F2F
     style I fill:#FFC107,stroke:#FFA000
-
-**Key MIS Integration Points:**  
-- `Update Inventory` → Oracle trigger (Phase VII prep)  
-- `Process Payment` → PL/SQL procedure  
-
----
-
-### 2. Swimlane Diagram (Roles & Responsibilities)  
-**Mermaid Code:**  
-````markdown
-```mermaid
-flowchart LR
-    subgraph Waiter
-        A[Take Order] --> B[POS Input]
-    end
-    subgraph Chef
-        C[Receive Order] --> D[Prepare Meal]
-    end
-    subgraph Manager
-        E[Approve Discounts] --> F[Generate Reports]
-    end
-    B --> C
-    D --> E
-```
----
-## 1. BPMN Diagram (Order Fulfillment)
-
-```mermaid
-flowchart TD
-    A([Start]) --> B[Take Order]
-    B --> C{Payment Type?}
-    C -->|Cash| D[Print Receipt]
-    C -->|Card| E[Process Payment]
-    D --> F[Send to Kitchen]
-    E --> F
-    F --> G[Prepare Meal]
-    G --> H[Deliver Order]
-    H --> I[[Update Inventory]]
-    I --> J([End])
     
-    style A fill:#4CAF50,stroke:#388E3C
-    style J fill:#F44336,stroke:#D32F2F
-    style I fill:#FFC107,stroke:#FFA000
-```
