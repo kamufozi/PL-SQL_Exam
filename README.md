@@ -65,3 +65,26 @@ flowchart TD
     style J fill:#F44336,stroke:#D32F2F
     style I fill:#FFC107,stroke:#FFA000
 
+**Key MIS Integration Points:**  
+- `Update Inventory` → Oracle trigger (Phase VII prep)  
+- `Process Payment` → PL/SQL procedure  
+
+---
+
+### 2. Swimlane Diagram (Roles & Responsibilities)  
+**Mermaid Code:**  
+````markdown
+```mermaid
+flowchart LR
+    subgraph Waiter
+        A[Take Order] --> B[POS Input]
+    end
+    subgraph Chef
+        C[Receive Order] --> D[Prepare Meal]
+    end
+    subgraph Manager
+        E[Approve Discounts] --> F[Generate Reports]
+    end
+    B --> C
+    D --> E
+```
