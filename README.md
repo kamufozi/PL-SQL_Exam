@@ -68,4 +68,20 @@ flowchart TD
     style A fill:#4CAF50,stroke:#388E3C
     style J fill:#F44336,stroke:#D32F2F
     style I fill:#FFC107,stroke:#FFA000
+
+    flowchart LR
+    subgraph Waiter
+        A[Take Order] --> B[Enter in POS]
+    end
+    subgraph Chef
+        C[Receive Order] --> D[Prepare Meal]
+    end
+    subgraph Manager
+        E[Generate Reports] --> F[Analyze Sales]
+    end
+    B --> C
+    D --> E
     
+    style Waiter fill:#E3F2FD,stroke:#2196F3
+    style Chef fill:#E8F5E9,stroke:#4CAF50
+    style Manager fill:#FFF3E0,stroke:#FF9800
