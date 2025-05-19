@@ -1,4 +1,4 @@
-# 🍽️ PL/SQL Capstone Project - Final Exam 
+# 🍽️ PL/SQL Capstone Project - Final Exam
 **Project Title:** Small Restaurant Order Management System  
 **Student:** Christian | **ID:** 27491 | **Group:** Wednesday  
 **Course:** INSY 8311 - Database Development with PL/SQL  
@@ -7,7 +7,7 @@
 
 ---
 
-## 📝 Problem Statement-PhaseI  
+## 📝 Problem Statement-Phase I 
 
 ### 🎯 **Project Objective**  
 Develop an Oracle PL/SQL-based system to:  
@@ -40,5 +40,4 @@ erDiagram
     ORDERS ||--|{ ORDER_ITEMS : contains
     ORDER_ITEMS }|--|| MENU : references
     EMPLOYEES }|--|| ORDERS : processes
-
-    ![phase I](./screenshots/phase%20I.png)
+```
