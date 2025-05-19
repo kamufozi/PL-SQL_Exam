@@ -41,3 +41,4 @@ erDiagram
     ORDER_ITEMS }|--|| MENU : references
     EMPLOYEES }|--|| ORDERS : processes
 ```
+![Phase I](./screenshots/phase%20I.png)
