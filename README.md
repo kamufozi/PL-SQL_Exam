@@ -42,3 +42,26 @@ erDiagram
     EMPLOYEES }|--|| ORDERS : processes
 ```
 ![Phase I](./screenshots/phase%20I.png)
+
+## 📌 Core Deliverables  
+
+### 1. BPMN Diagram (Order Fulfillment)  
+
+````markdown
+```mermaid
+flowchart TD
+    A([Start]) --> B[Take Order]
+    B --> C{Payment Type?}
+    C -->|Cash| D[Print Receipt]
+    C -->|Card| E[Process Payment]
+    D --> F[Send to Kitchen]
+    E --> F
+    F --> G[Prepare Meal]
+    G --> H[Deliver Order]
+    H --> I[[Update Inventory]]
+    I --> J([End])
+    
+    style A fill:#4CAF50,stroke:#388E3C
+    style J fill:#F44336,stroke:#D32F2F
+    style I fill:#FFC107,stroke:#FFA000
+
