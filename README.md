@@ -88,6 +88,7 @@ flowchart LR
     B --> C
     D --> E
 ```
+---
 ## 1. BPMN Diagram (Order Fulfillment)
 
 ```mermaid
