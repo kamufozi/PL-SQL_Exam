@@ -359,7 +359,7 @@ erDiagram
     MENU ||--|{ ORDER_ITEMS : "references"
     MENU ||--|| INVENTORY : "tracks"
 
-
+```
 
 
 **Screenshots Folder:**  
