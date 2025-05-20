@@ -305,59 +305,61 @@ CREATE TABLE inventory (
 ```mermaid
 erDiagram
     CUSTOMERS {
-        NUMBER customer_id PK
-        VARCHAR2(50) name
-        VARCHAR2(15) phone
-        VARCHAR2(100) email
-        DATE join_date
+        int customer_id PK
+        string name
+        string phone
+        string email
+        date join_date
     }
-    
+
     EMPLOYEES {
-        NUMBER employee_id PK
-        VARCHAR2(50) name
-        VARCHAR2(20) position
-        DATE hire_date
-        CHAR(1) active
+        int employee_id PK
+        string name
+        string position
+        date hire_date
+        char active
     }
-    
+
     MENU {
-        NUMBER item_id PK
-        VARCHAR2(100) name
-        NUMBER(6,2) price
-        VARCHAR2(50) category
-        CHAR(1) available
+        int item_id PK
+        string name
+        float price
+        string category
+        char available
     }
-    
+
     ORDERS {
-        NUMBER order_id PK
-        NUMBER customer_id FK
-        NUMBER employee_id FK
-        TIMESTAMP order_time
-        VARCHAR2(20) status
-        NUMBER(8,2) total_amount
+        int order_id PK
+        int customer_id FK
+        int employee_id FK
+        datetime order_time
+        string status
+        float total_amount
     }
-    
+
     ORDER_ITEMS {
-        NUMBER order_item_id PK
-        NUMBER order_id FK
-        NUMBER item_id FK
-        NUMBER quantity
-        NUMBER(6,2) unit_price
+        int order_item_id PK
+        int order_id FK
+        int item_id FK
+        int quantity
+        float unit_price
     }
-    
+
     INVENTORY {
-        NUMBER inventory_id PK
-        NUMBER item_id FK
-        NUMBER current_stock
-        NUMBER reorder_level
+        int inventory_id PK
+        int item_id FK
+        int current_stock
+        int reorder_level
+        date last_update
     }
-    
+
     CUSTOMERS ||--o{ ORDERS : "places"
     EMPLOYEES ||--o{ ORDERS : "processes"
     ORDERS ||--|{ ORDER_ITEMS : "contains"
     MENU ||--|{ ORDER_ITEMS : "references"
     MENU ||--|| INVENTORY : "tracks"
-```
+
+
 
 
 **Screenshots Folder:**  
