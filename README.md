@@ -1,27 +1,100 @@
-# 🍽️ PL/SQL Capstone Project - Final Exam
-**Project Title:** Small Restaurant Order Management System  
-**Student:** Christian | **ID:** 27491 | **Group:** Wednesday  
-**Course:** INSY 8311 - Database Development with PL/SQL  
-**Supervisor:** Eric Maniraguha  
+# 🎓 PL/SQL FINAL EXAM
 
+## 👤 Identification  
+**Name:** Christian Gwiza  
+**Student ID:** 27491  
+**Project Title:** Small Restaurant Order Management System  
+**Course:** INSY 8311 - Database Development with PL/SQL  
+**Academic Year:** 2024–2025  
+**Lecturer:** Eric Maniraguha (eric.maniraguha@auca.ac.rw)
 
 ---
 
-## 📝 Problem Statement-Phase I 
+## 🚀 Phase I: Problem Statement & Presentation
 
-### 🎯 **Project Objective**  
-Develop an Oracle PL/SQL-based system to:  
-- ✅ Automate order tracking for small restaurants  
-- ✅ Streamline menu management and billing  
-- ✅ Reduce human errors by 50%+  
-- ✅ Improve customer service through real-time order updates  
+### 📌 Objective  
+To identify a real-world issue that requires an Oracle PL/SQL database solution. The project must involve multiple entities, business rules, and PL/SQL logic such as procedures, functions, triggers, and packages.
 
-### 🌍 **Context**  
-**Target Environment:**  
-Busy urban restaurants with 10+ daily orders struggling with:  
-- 📜 Paper-based order management  
-- ⏳ Delays in kitchen-order communication  
-- 💸 Billing discrepancies  
+---
+
+### 💡 Project Summary: Small Restaurant Order Management System
+
+---
+
+### 📖 Problem Definition  
+Small restaurants frequently rely on **manual order processing and stock tracking**, which introduces:
+
+- Delays in kitchen communication  
+- Errors in customer bills  
+- Inaccurate ingredient inventory levels  
+- Poor tracking of item popularity and sales trends  
+
+---
+
+### 🌍 Context  
+This system is designed for use in:
+
+- Small local restaurants  
+- Cafés and food stands  
+- Quick-service businesses with limited staffing  
+
+It helps them **automate order taking**, track food items sold, and maintain accurate stock for kitchen ingredients.
+
+---
+
+### 🎯 Target Users  
+
+- Restaurant managers  
+- Cashiers  
+- Kitchen staff  
+
+---
+
+### 🏆 Project Goals  
+
+- 🧾 Automate customer order handling  
+- 📦 Track food menu item sales and update stock  
+- 🔔 Notify when inventory is low  
+- 👨‍🍳 Assign employee roles (e.g., waiter, chef) per order  
+- 📊 Provide real-time reports for management decisions  
+
+---
+
+### 🧩 Key Database Entities  
+
+| Entity         | Attributes                                                       |
+|----------------|------------------------------------------------------------------|
+| Customers      | customer_id, name, phone, email, join_date                       |
+| Employees      | employee_id, name, position, hire_date, active                   |
+| Menu           | item_id, name, price, category, available, created_at            |
+| Orders         | order_id, customer_id, employee_id, order_time, status, total    |
+| Order_Items    | order_item_id, order_id, item_id, quantity, unit_price           |
+| Inventory      | inventory_id, item_id, current_stock, reorder_level, last_update |
+| Holidays       | holiday_id, holiday_name, holiday_date, is_recurring             |
+| Audit_Log      | log_id, user_id, action_time, table_name, operation, status, comments |
+
+---
+
+### 🔗 Relationships  
+
+- One **customer** can make many **orders** (1:N)  
+- One **employee** handles many **orders** (1:N)  
+- One **order** contains many **menu items** (M:N via `order_items`)  
+- One **menu item** is linked to one **inventory item** (1:1)  
+
+---
+
+### 💎 System Benefits  
+
+✅ Reduces billing errors and order confusion  
+✅ Sends alerts for low ingredient stock  
+✅ Assigns responsibility to employees for accountability  
+✅ Tracks best-selling menu items for management insight  
+✅ Enhances customer service through accurate and timely processing  
+✅ Simplifies operational reporting for restaurant owners
+
+---
+
 
 ### 👥 **Stakeholders**  
 | Role               | Pain Points Solved                  |
