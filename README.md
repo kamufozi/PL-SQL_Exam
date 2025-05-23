@@ -738,7 +738,7 @@ Screenshots of successful test outputs were stored for documentation.
 
 ### ✅ Summary querry
 
-![PHASE VI](/screenshots/summaryquery.jpgg)
+![PHASE VI](/screenshots/summaryquery.jpg)
 
 ### ✅ Summary of Deliverables
 
@@ -753,3 +753,225 @@ Screenshots of successful test outputs were stored for documentation.
 | Trigger                         | ✅        |
 | Package with Reusable Logic     | ✅        |
 | Testing + Screenshots           | ✅        |
+
+## 🧠 Phase VII: Advanced Database Programming and Auditing
+
+### 🎯 Objective  
+To secure the **Small Restaurant Order Management System** by implementing:
+- 🔐 Trigger-based weekday and holiday restrictions  
+- 📋 A centralized audit system  
+- 📦 Package-based logging for traceable, secure DML actions  
+
+---
+
+### 🔍 Problem Statement  
+Restaurant systems are vulnerable to **accidental or unauthorized changes** during high-volume or sensitive periods. This phase implements:
+
+✅ Preventing data modifications during **weekdays and holidays**  
+🕵️ Tracking who attempted changes and when  
+📦 Using PL/SQL **packages for modular auditing**  
+🎯 Supports governance, traceability, and accountability
+
+---
+
+### 📅 Holiday Restriction System
+
+#### ✅ `holidays` Table  
+Used to store blocked public holidays.
+
+```sql
+CREATE TABLE holidays (
+    holiday_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    holiday_name VARCHAR2(100) NOT NULL,
+    holiday_date DATE NOT NULL,
+    is_recurring CHAR(1) DEFAULT 'N' CHECK (is_recurring IN ('Y','N'))
+);
+INSERT INTO holidays (holiday_name, holiday_date)
+VALUES ('Independence Day', TO_DATE('2025-07-01', 'YYYY-MM-DD'));
+
+INSERT INTO holidays (holiday_name, holiday_date)
+VALUES ('Umuganura', TO_DATE('2025-08-02', 'YYYY-MM-DD'));
+
+COMMIT;
+
+```
+![PHASE VII](/screenshots/holidayTable.jpg)
+---
+![PHASE VII](/screenshots/insertholiday.jpg)
+
+### 🧨 Trigger-Based Restriction Logic
+
+#### ✅ `trg_block_weekday_holiday_dml` on `orders`  
+Prevents inserts, updates, and deletes during weekdays or public holidays.
+
+```sql
+CREATE OR REPLACE TRIGGER trg_block_weekday_holiday_dml
+BEFORE INSERT OR UPDATE OR DELETE ON orders
+FOR EACH ROW
+DECLARE
+    v_today DATE := TRUNC(SYSDATE);
+    v_day VARCHAR2(15);
+    v_holiday_count NUMBER;
+BEGIN
+    v_day := RTRIM(TO_CHAR(v_today, 'DAY', 'NLS_DATE_LANGUAGE=ENGLISH'));
+
+    IF v_day IN ('MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY') THEN
+        RAISE_APPLICATION_ERROR(-20001, '🔒 DML blocked: Not allowed on weekdays.');
+    END IF;
+
+    SELECT COUNT(*) INTO v_holiday_count
+    FROM holidays
+    WHERE holiday_date = v_today
+      AND holiday_date BETWEEN v_today AND ADD_MONTHS(v_today, 1);
+
+    IF v_holiday_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20002, '🔒 DML blocked: Not allowed on public holidays.');
+    END IF;
+END;
+/
+```
+![PHASE VII](/screenshots/trigger_holiday_compiled.jpg)
+---
+
+## 🕵️ Auditing System
+
+### ✅ `audit_log` Table  
+Captures every DML attempt with user ID, date, and outcome.
+
+```sql
+CREATE TABLE audit_log (
+    log_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    user_id VARCHAR2(50) NOT NULL,
+    action_time TIMESTAMP DEFAULT SYSTIMESTAMP,
+    table_name VARCHAR2(50) NOT NULL,
+    operation VARCHAR2(10) NOT NULL,
+    record_id NUMBER,
+    status VARCHAR2(10) NOT NULL,
+    comments VARCHAR2(200)
+);
+```
+![PHASE VII](/screenshots/audit_table_created.jpg)
+---
+
+## 🔄 DML Trigger + Audit Package Integration
+
+### ✅ `trg_audit_orders` Trigger
+
+```sql
+CREATE OR REPLACE TRIGGER trg_audit_orders
+AFTER INSERT OR UPDATE OR DELETE ON orders
+FOR EACH ROW
+DECLARE
+    v_status VARCHAR2(10) := 'ALLOWED';
+    v_operation VARCHAR2(10);
+    v_record_id NUMBER;
+BEGIN
+    IF INSERTING THEN
+        v_operation := 'INSERT';
+        v_record_id := :NEW.order_id;
+    ELSIF UPDATING THEN
+        v_operation := 'UPDATE';
+        v_record_id := :NEW.order_id;
+    ELSIF DELETING THEN
+        v_operation := 'DELETE';
+        v_record_id := :OLD.order_id;
+    END IF;
+
+    INSERT INTO audit_log (user_id, action_time, table_name, operation, record_id, status)
+    VALUES (USER, SYSTIMESTAMP, 'ORDERS', v_operation, v_record_id, v_status);
+END;
+/
+```
+![PHASE VII](/screenshots/trigger_auditlog_compiled.jpg)
+---
+
+### 📦 `audit_pkg` – Centralized Audit Logging Package
+
+### ✅ Package Specification
+
+```sql
+CREATE OR REPLACE PACKAGE audit_pkg IS
+  PROCEDURE log_action(
+    p_table     VARCHAR2,
+    p_operation VARCHAR2,
+    p_status    VARCHAR2,
+    p_comments  VARCHAR2
+  );
+END audit_pkg;
+/
+```
+![PHASE VII](/screenshots/auditpackg_compiled.jpg)
+---
+### ✅ Package Body
+
+```sql
+CREATE OR REPLACE PACKAGE BODY audit_pkg IS
+  PROCEDURE log_action(
+    p_table     VARCHAR2,
+    p_operation VARCHAR2,
+    p_status    VARCHAR2,
+    p_comments  VARCHAR2
+  ) IS
+  BEGIN
+    INSERT INTO audit_log (
+        user_id, table_name, operation, status, comments
+    ) VALUES (
+        USER, p_table, p_operation, p_status, p_comments
+    );
+  END;
+END audit_pkg;
+/
+```
+![PHASE VII](/screenshots/auditpackg_compiled2.jpg)
+---
+
+## 🧪 Testing & Evidence
+
+### 🔬 1. ✅ Manual Log Entry (Weekend)
+
+```sql
+BEGIN
+  audit_pkg.log_action('ORDERS', 'TEST', 'ALLOWED', 'Manual test on weekend');
+END;
+/
+```
+![PHASE VII](/screenshots/manual_log.jpg)
+---
+### 🔬 2. ❌ Denied Insert (Weekday or Holiday)
+
+```sql
+INSERT INTO orders (customer_id, employee_id)
+VALUES (1, 2);
+-- Expected: Fails with weekday or holiday trigger error
+```
+![PHASE VII](/screenshots/error_insert.jpg)
+---
+### 🔬 3. 🔍 View Audit Log
+
+```sql
+SELECT * FROM audit_log ORDER BY action_time DESC;
+```
+![PHASE VII](/screenshots/viewing_auditlog.jpg)
+---
+### 🔬 4. ❌ Denied Update/Delete (Weekday or Holiday)
+
+```sql
+UPDATE orders SET status = 'CANCELLED' WHERE order_id = 1;
+DELETE FROM orders WHERE order_id = 1;
+-- Expected: Denied on restricted days
+```
+![PHASE VII](/screenshots/denied_delete.jpg)
+---
+
+## ✅ Summary of Requirements Completed
+
+| Requirement Area      | Task Description                        | ✅ Status |
+|-----------------------|------------------------------------------|-----------|
+| Problem Statement      | Clearly described & justified            | ✅         |
+| Holiday System         | Table created & data inserted            | ✅         |
+| Restriction Trigger    | Prevents DML on weekdays & holidays      | ✅         |
+| Auditing Table         | Tracks user actions                      | ✅         |
+| Audit Package          | Logs events via procedure                | ✅         |
+| Testing & Evidence     | All cases tested + screenshots taken     | ✅         |
+
+📌 **Phase VII Complete – System Secured and Audited**
