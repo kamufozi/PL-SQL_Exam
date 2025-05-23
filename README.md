@@ -545,38 +545,38 @@ To implement the physical database structure based on the logical model and inse
 ✅ The following tables were created in the schema `wed_27491_christian_restaurant_db` using SQL Developer:
 
 🧱 **Table: Customers**  
-Customers Table Created ✅
+<!-- Customers Table Created ✅ -->
 ![PHASE V](/screenshots/home_customers_created.png)
 🧱 **Table: Employees**  
-Employees Table Created ✅
+<!-- Employees Table Created ✅ -->
 ![PHASE V](/screenshots/EMployees_table_created.png)
 🧱 **Table: Menu**  
-Menu Table Created ✅
+<!-- Menu Table Created ✅ -->
 ![PHASE V](/screenshots/menu_table_created.png)
 🧱 **Table: Orders**  
-Orders Table Created ✅
+<!-- Orders Table Created ✅ -->
 ![PHASE V](/screenshots/order_teabl.png)
 🧱 **Table: Order_Items**  
-Order_Items Table Created ✅
+<!-- Order_Items Table Created ✅ -->
 ![PHASE V](/screenshots/order_items_table.png)
 🧱 **Table: Inventory**  
-Inventory Table Created ✅
+<!-- Inventory Table Created ✅ -->
 ![PHASE V](/screenshots/inventory_table.png)
 ---
 ### 📥 Step 2: Data Insertion  
 Realistic data entries were inserted to simulate meaningful restaurant operations:
 
 🗃️ **Insertion: Customers**  
-Customers Data Inserted ✅
+
 ![PHASE V](/screenshots/insertIntoCustomers.png)
 🗃️ **Insertion: Employees**  
-Employees Data Inserted ✅
+
 ![PHASE V](/screenshots/insertEmployees.png)
 🗃️ **Insertion: Menu Items**  
-Menu Data Inserted ✅
+
 ![PHASE V](/screenshots/insertMenu.jpg)
 🗃️ **Insertion: Inventory**  
-Inventory Data Inserted ✅
+
 ![PHASE V](/screenshots/insertInventory.jpg)
 ---
 
