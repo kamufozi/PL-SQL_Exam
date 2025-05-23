@@ -43,7 +43,7 @@ erDiagram
 ```
 ![Phase I](./screenshots/phase%20I.png)
 
-# 🏗️ PL/SQL Capstone - Phase II: Business Process Modeling
+## 🏗️ PL/SQL Capstone - Phase II: Business Process Modeling
 **Adventist University of Central Africa**  
 *Faculty of Information Technology | INSY 8311 - Database Development with PL/SQL*  
 **Student:** Christian (ID: 27491) | **Group:** Wednesday  
@@ -51,7 +51,7 @@ erDiagram
 
 ---
 
-## 📌 BPMN Diagram (Order Fulfillment Process)
+### 📌 BPMN Diagram (Order Fulfillment Process)
 ```mermaid
 flowchart TD
     A([Start]) --> B[Take Order]
@@ -94,7 +94,7 @@ flowchart LR
     ```
 
 ```
-# Business Process Documentation
+## Business Process Documentation
 
 ## 1. System Flow
 1. Order taken → POS entry → Kitchen display  
@@ -115,16 +115,16 @@ END;
 /
 ```
 
-# 🧩 Phase III: Logical Model Design
+## 🧩 Phase III: Logical Model Design
 
-## 🎯 Objective
+### 🎯 Objective
 This project addresses the order management challenges of small restaurants, including inefficient order tracking, menu management difficulties, and billing discrepancies. The logical model developed in this phase is based on the real-world needs outlined in Phase I and the process workflow modeled in Phase II.
 
 Design a normalized, well-constrained, relational data model that accurately represents customers, orders, menu items, employees, and inventory for a small restaurant business.
 
 ---
 
-## 🗃️ Entities & Attributes
+### 🗃️ Entities & Attributes
 
 ### 🍽️ MENU
 | Attribute   | Type           | Constraint |
@@ -261,7 +261,7 @@ CREATE TABLE inventory (
 
 ---
 
-## 🔄 Relationships & Constraints
+### 🔄 Relationships & Constraints
 
 - 👥 CUSTOMERS ↔ ORDERS — One-to-Many  
 - 👨🍳 EMPLOYEES ↔ ORDERS — One-to-Many  
@@ -277,14 +277,14 @@ CREATE TABLE inventory (
 
 ---
 
-## 📐 Normalization (3NF Verified)
+### 📐 Normalization (3NF Verified)
 - ✅ **1NF** – All attributes contain atomic values  
 - ✅ **2NF** – No partial dependencies  
 - ✅ **3NF** – Eliminated transitive dependencies  
 
 ---
 
-## 🧪 Real-World Scenario Coverage
+### 🧪 Real-World Scenario Coverage
 
 | Scenario                          | Supported |
 |----------------------------------|-----------|
@@ -298,9 +298,9 @@ CREATE TABLE inventory (
 
 ---
 
-## 🖼️ ERD Diagram
+### 🖼️ ERD Diagram
 
-## 🖼️ ERD Diagram (Mermaid Syntax)
+### 🖼️ ERD Diagram (Mermaid Syntax)
 
 ```mermaid
 erDiagram
@@ -371,22 +371,22 @@ erDiagram
 
 ---
 
-## 💻 SQL Script Location
+### 💻 SQL Script Location
 
 📁 `/sql/phase_III_create_tables.sql`  
 Contains complete DDL for all tables with constraints and relationships.
 
 
-## 🎯 Objective
+### 🎯 Objective
 Design a normalized, well-constrained relational data model for the Small Restaurant Order Management System that:
 - Tracks customers, orders, menu items, and inventory
 - Ensures data integrity through constraints
 - Supports all business processes identified in Phase II
 - Adheres to 3rd Normal Form (3NF)
 
-## 🗃️ Core Entities
+### 🗃️ Core Entities
 
-### 🍽️ MENU
+#### 🍽️ MENU
 ```sql
 CREATE TABLE menu (
     item_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -589,7 +589,7 @@ A join query was executed to validate relationships and ensure referential integ
 - Data is logically consistent and properly connected
 
 📸 `Query_Validation_Output.png`
-![PHASE IV](/screenshots/dataintegrity.jpg)
+![PHASE V](/screenshots/dataintegrity.jpg)
 ---
 
 ### 🛡️ Step 4: Constraints and Integrity
@@ -614,3 +614,138 @@ A join query was executed to validate relationships and ensure referential integ
 | Data integrity validated  | ✅     |
 | Constraints applied       | ✅     |
 | Screenshots added         | ✅     |
+
+## 🔧 Phase VI: PL/SQL Programming (Procedures, Functions, Triggers, Packages)
+
+### 🎯 Objective
+To implement business logic directly within the Oracle database using PL/SQL. This includes automating operations, analyzing data, and ensuring reliability through procedures, functions, triggers, and packages for the **Small Restaurant Order Management System**.
+
+---
+
+### 🧱 Database Operations
+
+#### 🔁 DML Operations
+`INSERT`, `UPDATE`, and `DELETE` commands were used to manipulate data in the system. These operations included:
+- Inserting new orders and order items
+- Updating total amounts in the orders table after inserts
+- Deleting inactive customers with no active orders
+
+These operations ensured that the data reflected real-world restaurant activities, such as adding menu items to orders or removing outdated customer records.
+
+![PHASE V](/screenshots/Dml_UPdate.png)
+
+#### 🧩 DDL Operations
+`CREATE`, `ALTER`, and `DROP` commands were executed during schema refinement and testing. These operations included:
+- Adding or modifying constraints like `CHECK`, `NOT NULL`, and `DEFAULT`
+- Creating views (e.g., `order_details`)
+- Structuring the database for future PL/SQL logic
+
+![PHASE V](/screenshots/DDL_Delete.png)
+
+### 💡 Simple Analytics Problem Statement
+
+**“Analyze how many times each menu item has been sold to help determine restocking priorities.”**
+
+This was implemented using a **window function** applied to the `order_items` table. The query aggregated the total quantity sold per item without grouping rows, providing insight into high-demand products. The result supports inventory planning and restocking decisions.
+
+```sql
+SELECT 
+    m.name AS item_name,
+    oi.item_id,
+    SUM(oi.quantity) OVER (PARTITION BY oi.item_id) AS total_sold
+FROM 
+    order_items oi
+JOIN 
+    menu m ON oi.item_id = m.item_id;
+```
+
+![PHASE VI](/screenshots/simple_analyticsPhase61.png.jpg)
+
+### 🛠️ PL/SQL Components
+
+#### ✅ Procedure: `add_order_item`
+A procedure was developed to handle the insertion of new order items. The procedure:
+- Adds a new item to an existing order
+- Automatically retrieves the menu price
+- Calculates line totals and updates the order's `total_amount`
+- Includes exception handling for missing items or failed inserts
+- Uses a cursor to dynamically fetch menu details
+
+This procedure automates part of the restaurant ordering process and ensures accurate billing.
+
+![PHASE VI](/screenshots/procedurePhase6.png)
+---
+![PHASE VI](/screenshots/secondPhase6Procedure.png)
+---
+
+#### ✅ Cursor Use in Procedure
+A cursor was used inside the `add_order_item` procedure to retrieve menu item information. The cursor:
+- Loops through relevant menu items
+- Fetches names and prices
+- Ensures dynamic, row-by-row processing
+
+This improves flexibility and traceability in order processing.
+
+![PHASE VI](/screenshots/CursorPhase6.png)
+
+#### ✅ Function: `get_stock_level`
+A reusable function was created to return the current stock level of a menu item from the `inventory` table. It is useful for:
+- Real-time stock checks before order processing
+- On-demand queries from other packages or triggers
+- Inventory status monitoring
+
+If the item is not found, the function gracefully handles it by returning `-1`.
+
+![PHASE VI](/screenshots/function_compiled.jpg)
+---
+![PHASE VI](/screenshots/fun.jpg)
+
+#### ✅ Trigger: `trigger_stock_alert`
+A trigger was implemented to monitor inventory updates. It fires:
+- After an `UPDATE` on the `inventory` table
+- If the updated stock level falls below the defined reorder threshold
+- Generates an alert (e.g., `DBMS_OUTPUT`) to notify about low stock
+
+This trigger acts as a real-time safeguard to prevent stock-outs of popular items.
+![PHASE VI](/screenshots/trigger_compiled.jpg)
+---
+![PHASE VI](/screenshots/trigger_testing.jpg)
+
+#### 📦 PL/SQL Package: `inventory_pkg`
+To keep the logic modular and reusable, a package named `inventory_pkg` was created. It includes:
+- The `add_order_item` procedure
+- The `get_stock_level` function
+
+The package offers benefits such as:
+- Better organization of business logic
+- Easier maintenance and testing
+- Reusability across multiple PL/SQL modules
+
+---
+![PHASE VI](/screenshots/pckg_compiled.jpg)
+
+### ✅ Package Testing
+The package and its components were tested individually using anonymous PL/SQL blocks. Test cases validated:
+- Proper item insertion into orders
+- Accurate order total calculation
+- Inventory checks using the function
+- Trigger firing correctly when stock thresholds were crossed
+
+Screenshots of successful test outputs were stored for documentation.
+
+---
+
+
+### ✅ Summary of Deliverables
+
+| Task                            | Completed |
+|---------------------------------|-----------|
+| DDL / DML Commands              | ✅        |
+| Simple Analytics Query          | ✅        |
+| Procedure                       | ✅        |
+| Function                        | ✅        |
+| Cursor Use (in Procedure)       | ✅        |
+| Exception Handling              | ✅        |
+| Trigger                         | ✅        |
+| Package with Reusable Logic     | ✅        |
+| Testing + Screenshots           | ✅        |
