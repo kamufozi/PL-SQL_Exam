@@ -534,3 +534,83 @@ WHERE username = 'CHRISTIAN27491';
 | SQL Developer used as OEM alt | ✅         |
 | Screenshots taken and stored  | ✅         |
 
+## 🧱 Phase V: Table Implementation and Data Insertion
+
+### 🎯 Objective
+To implement the physical database structure based on the logical model and insert meaningful, testable data. This phase ensures structural integrity, accurate constraints, and realistic data to support restaurant operations and future PL/SQL development.
+
+---
+
+### 🔨 Step 1: Table Creation  
+✅ The following tables were created in the schema `wed_27491_christian_restaurant_db` using SQL Developer:
+
+🧱 **Table: Customers**  
+Customers Table Created ✅
+![PHASE V](/screenshots/home_customers_created.png)
+🧱 **Table: Employees**  
+Employees Table Created ✅
+![PHASE V](/screenshots/EMployees_table_created.png)
+🧱 **Table: Menu**  
+Menu Table Created ✅
+![PHASE V](/screenshots/menu_table_created.png)
+🧱 **Table: Orders**  
+Orders Table Created ✅
+![PHASE V](/screenshots/order_teabl.png)
+🧱 **Table: Order_Items**  
+Order_Items Table Created ✅
+![PHASE V](/screenshots/order_items_table.png)
+🧱 **Table: Inventory**  
+Inventory Table Created ✅
+![PHASE V](/screenshots/inventory_table.png)
+---
+### 📥 Step 2: Data Insertion  
+Realistic data entries were inserted to simulate meaningful restaurant operations:
+
+🗃️ **Insertion: Customers**  
+Customers Data Inserted ✅
+![PHASE V](/screenshots/insertIntoCustomers.png)
+🗃️ **Insertion: Employees**  
+Employees Data Inserted ✅
+![PHASE V](/screenshots/insertEmployees.png)
+🗃️ **Insertion: Menu Items**  
+Menu Data Inserted ✅
+![PHASE V](/screenshots/insertMenu.jpg)
+🗃️ **Insertion: Inventory**  
+Inventory Data Inserted ✅
+![PHASE V](/screenshots/insertInventory.jpg)
+---
+
+### 🔍 Step 3: Data Integrity Validation  
+A join query was executed to validate relationships and ensure referential integrity.
+
+✅ Result confirmed that:
+- All foreign key constraints are working correctly  
+- One-to-many and many-to-many relationships are intact  
+- Data is logically consistent and properly connected
+
+📸 `Query_Validation_Output.png`
+![PHASE IV](/screenshots/dataintegrity.jpg)
+---
+
+### 🛡️ Step 4: Constraints and Integrity
+
+| Constraint    | Applied To          | Type                               |
+|---------------|---------------------|------------------------------------|
+| PRIMARY KEY   | All base tables     | Uniquely identifies rows           |
+| FOREIGN KEY   | Orders, Order_Items | Enforces referential integrity     |
+| NOT NULL      | Most fields         | Prevents null violations           |
+| UNIQUE        | Customers.Phone     | Avoids duplicate contact entries   |
+| CHECK         | Price, Quantity     | Validates business rules           |
+| DEFAULT       | Join_Date, Order_Time | Auto-sets values on insert       |
+
+---
+
+### ✅ Summary
+
+| Deliverable               | Status |
+|---------------------------|--------|
+| Physical table creation   | ✅     |
+| Data inserted             | ✅     |
+| Data integrity validated  | ✅     |
+| Constraints applied       | ✅     |
+| Screenshots added         | ✅     |
