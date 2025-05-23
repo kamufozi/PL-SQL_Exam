@@ -734,7 +734,11 @@ The package and its components were tested individually using anonymous PL/SQL b
 Screenshots of successful test outputs were stored for documentation.
 
 ---
+![PHASE VI](/screenshots/procedureTest.jpg)
 
+### ✅ Summary querry
+
+![PHASE VI](/screenshots/summaryquery.jpgg)
 
 ### ✅ Summary of Deliverables
 
