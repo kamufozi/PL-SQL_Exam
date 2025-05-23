@@ -461,4 +461,68 @@ erDiagram
     MENU ||--|{ ORDER_ITEMS : "references"
     MENU ||--|| INVENTORY : "tracks"
 ```
-    
+## 🏗️ Phase IV: Database Creation and Access Setup (via SQL Developer)
+
+### 🎯 Objective
+To create a dedicated Oracle PL/SQL database environment for the **Small Restaurant Order Management System**, using **SQL Developer** as an alternative to Oracle Enterprise Manager (OEM). This environment enables full access control and prepares for Phase V.
+
+---
+
+### 🔐 Task 1: PDB and User Creation (SQL Developer)
+The development user and schema were created inside a **Pluggable Database (PDB)** using SQL Developer, providing a GUI interface for configuration and management.
+
+---
+
+### 🧰 Configuration Summary
+
+| Component         | Value                                      |
+|------------------|--------------------------------------------|
+| Tool Used         | SQL Developer (OEM Alternative)            |
+| PDB Name          | `wed_27491_christian_restaurant_db`        |
+| User Created      | `christian27491`                           |
+| Password          | `christian`                                |
+| Privileges Granted| Full DBA privileges                        |
+
+---
+
+### 📸 Screenshot: PDB Creation in SQL Developer
+`📷 PDB_Creation.png`
+![PHASE IV](/screenshots/phase4sql.png)
+---
+
+### 📸 Screenshot: User Created & Privileges Granted
+`📷 User_Creation_Privileges.png`
+![PHASE IV](/screenshots/phase4_pic2.png)
+---
+
+### 💻 SQL Script Executed
+
+```sql
+-- Connect to CDB and switch to PDB
+ALTER SESSION SET CONTAINER = wed_27491_christian_restaurant_db;
+
+-- Create the project user
+CREATE USER christian27491 IDENTIFIED BY christian;
+
+-- Grant access privileges
+GRANT CONNECT, RESOURCE TO christian27491;
+GRANT DBA TO christian27491;
+
+-- Set default tablespace and quota
+ALTER USER christian27491 DEFAULT TABLESPACE users;
+ALTER USER christian27491 QUOTA UNLIMITED ON users;
+
+-- Check user status
+SELECT username, account_status 
+FROM dba_users 
+WHERE username = 'CHRISTIAN27491';
+```    
+### 📸 Screenshot: Enterprise Manager Database Express
+`📷 Enterprise Manager Database Express interface`
+![PHASE IV](/screenshots/phase4_Enterpr_!.jpg)
+---
+![PHASE IV](/screenshots/phase4_1.png)
+---
+![PHASE IV](/screenshots/phase4.png)
+---
+
