@@ -485,12 +485,11 @@ The development user and schema were created inside a **Pluggable Database (PDB)
 
 ---
 
-### 📸 Screenshot: PDB Creation in SQL Developer
 `📷 PDB_Creation.png`
 ![PHASE IV](/screenshots/phase4sql.png)
 ---
 
-### 📸 Screenshot: User Created & Privileges Granted
+
 `📷 User_Creation_Privileges.png`
 ![PHASE IV](/screenshots/phase4_pic2.png)
 ---
@@ -517,7 +516,7 @@ SELECT username, account_status
 FROM dba_users 
 WHERE username = 'CHRISTIAN27491';
 ```    
-### 📸 Screenshot: Enterprise Manager Database Express
+
 `📷 Enterprise Manager Database Express interface`
 ![PHASE IV](/screenshots/phase4_Enterpr_!.jpg)
 ---
@@ -525,4 +524,13 @@ WHERE username = 'CHRISTIAN27491';
 ---
 ![PHASE IV](/screenshots/phase4.png)
 ---
+### ✅ PHASE IV Summary
+| Step                          | Completed |
+| ----------------------------- | --------- |
+| PDB created                   | ✅         |
+| Project user created          | ✅         |
+| Password set to first name    | ✅         |
+| DBA privileges granted        | ✅         |
+| SQL Developer used as OEM alt | ✅         |
+| Screenshots taken and stored  | ✅         |
 
