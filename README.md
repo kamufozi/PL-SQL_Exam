@@ -452,75 +452,6 @@ Design a normalized, well-constrained relational data model for the Small Restau
 - Ensures data integrity through constraints
 - Supports all business processes identified in Phase II
 - Adheres to 3rd Normal Form (3NF)
-
-### 🗃️ Core Entities
-
-#### 🍽️ MENU
-```sql
-CREATE TABLE menu (
-    item_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR2(100) NOT NULL,
-    price NUMBER(6,2) NOT NULL CHECK (price > 0),
-    category VARCHAR2(50) NOT NULL,
-    available CHAR(1) DEFAULT 'Y' CHECK (available IN ('Y','N')),
-    created_at DATE DEFAULT SYSDATE
-);
-``` 
-### 🧾 ORDERS
-```sql
-CREATE TABLE orders (
-    order_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    customer_id NUMBER NOT NULL,
-    employee_id NUMBER NOT NULL,
-    order_time TIMESTAMP DEFAULT SYSTIMESTAMP,
-    status VARCHAR2(20) DEFAULT 'RECEIVED',
-    total_amount NUMBER(8,2) DEFAULT 0,
-    CONSTRAINT fk_customer FOREIGN KEY (customer_id) REFERENCES customers(customer_id),
-    CONSTRAINT fk_employee FOREIGN KEY (employee_id) REFERENCES employees(employee_id)
-);
-```
-### 👥 CUSTOMERS
-```sql
-CREATE TABLE customers (
-    customer_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR2(50) NOT NULL,
-    phone VARCHAR2(15) UNIQUE,
-    email VARCHAR2(100),
-    join_date DATE DEFAULT SYSDATE
-);
-```
-### 👨🍳 EMPLOYEES
-```sql
-CREATE TABLE employees (
-    employee_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR2(50) NOT NULL,
-    position VARCHAR2(20) NOT NULL,
-    hire_date DATE DEFAULT SYSDATE,
-    active CHAR(1) DEFAULT 'Y' CHECK (active IN ('Y','N'))
-);
-```
-### 🛒 ORDER_ITEMS
-```sql
-CREATE TABLE order_items (
-    order_item_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    order_id NUMBER NOT NULL,
-    item_id NUMBER NOT NULL,
-    quantity NUMBER NOT NULL CHECK (quantity > 0),
-    unit_price NUMBER(6,2) NOT NULL,
-    CONSTRAINT fk_order FOREIGN KEY (order_id) REFERENCES orders(order_id),
-    CONSTRAINT fk_menu_item FOREIGN KEY (item_id) REFERENCES menu(item_id)
-);
-```
-### 📦 INVENTORY
-```sql
-CREATE TABLE inventory (
-    inventory_id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    item_id NUMBER NOT NULL UNIQUE,
-    current_stock NUMBER DEFAULT 0 CHECK (current_stock >= 0),
-    reorder_level NUMBER DEFAULT 5,
-    last_update DATE DEFAULT SYSDATE,
-    CONSTRAINT fk_menu_item_inv FOREIGN KEY (item_id) REFERENCES menu(item_id)
-);
 ```
 ```mermaid
 erDiagram
@@ -547,9 +478,9 @@ The development user and schema were created inside a **Pluggable Database (PDB)
 | Component         | Value                                      |
 |------------------|--------------------------------------------|
 | Tool Used         | SQL Developer (OEM Alternative)            |
-| PDB Name          | `wed_27491_christian_restaurant_db`        |
-| User Created      | `christian27491`                           |
-| Password          | `christian`                                |
+| PDB Name          | `WED_27491_GWIZA_RESTO_DB`        |
+| User Created      | `gwiza123`                           |
+| Password          | `123`                                |
 | Privileges Granted| Full DBA privileges                        |
 
 ---
@@ -567,23 +498,23 @@ The development user and schema were created inside a **Pluggable Database (PDB)
 
 ```sql
 -- Connect to CDB and switch to PDB
-ALTER SESSION SET CONTAINER = wed_27491_christian_restaurant_db;
+ALTER SESSION SET CONTAINER = WED_27491_GWIZA_RESTO_DB;
 
 -- Create the project user
-CREATE USER christian27491 IDENTIFIED BY christian;
+CREATE USER gwiza123 IDENTIFIED BY 123;
 
 -- Grant access privileges
-GRANT CONNECT, RESOURCE TO christian27491;
-GRANT DBA TO christian27491;
+GRANT CONNECT, RESOURCE TO gwiza123;
+GRANT DBA TO gwiza123;
 
 -- Set default tablespace and quota
-ALTER USER christian27491 DEFAULT TABLESPACE users;
-ALTER USER christian27491 QUOTA UNLIMITED ON users;
+ALTER USER gwiza123 DEFAULT TABLESPACE users;
+ALTER USER gwiza123 QUOTA UNLIMITED ON users;
 
 -- Check user status
 SELECT username, account_status 
 FROM dba_users 
-WHERE username = 'CHRISTIAN27491';
+WHERE username = 'gwiza123';
 ```    
 
 `📷 Enterprise Manager Database Express interface`
