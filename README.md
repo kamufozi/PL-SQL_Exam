@@ -117,10 +117,6 @@ erDiagram
 ![Phase I](./screenshots/phase%20I.png)
 
 ## 🏗️ PL/SQL Capstone - Phase II: Business Process Modeling
-**Adventist University of Central Africa**  
-*Faculty of Information Technology | INSY 8311 - Database Development with PL/SQL*  
-**Student:** Christian (ID: 27491) | **Group:** Wednesday  
-**Deadline:** [Insert Date]  
 
 ---
 
