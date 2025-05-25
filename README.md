@@ -452,15 +452,8 @@ Design a normalized, well-constrained relational data model for the Small Restau
 - Ensures data integrity through constraints
 - Supports all business processes identified in Phase II
 - Adheres to 3rd Normal Form (3NF)
-```
-```mermaid
-erDiagram
-    CUSTOMERS ||--o{ ORDERS : "places"
-    EMPLOYEES ||--o{ ORDERS : "processes"
-    ORDERS ||--|{ ORDER_ITEMS : "contains"
-    MENU ||--|{ ORDER_ITEMS : "references"
-    MENU ||--|| INVENTORY : "tracks"
-```
+
+
 ## 🏗️ Phase IV: Database Creation and Access Setup (via SQL Developer)
 
 ### 🎯 Objective
